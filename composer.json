@@ -1,0 +1,13 @@
+{
+  "name": "loominade/loominade_preprocess",
+  "type": "drupal-module",
+  "description": "Provides additional entity data for templates.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://github.com/loominade/loominade_preprocess",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.com/loominade/loominade_preprocess/issues",
+    "source": "https://github.com/loominade/loominade_preprocess"
+  }
+}
