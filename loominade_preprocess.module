@@ -3,18 +3,12 @@
 /**
  * @file
  * Primary module hooks for Loominade preprocess module.
- *
- * @DCG
- * This file is no longer required in Drupal 8.
- * @see https://www.drupal.org/node/2217931
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Render\Element;
-use Drupal\Core\Entity\EntityViewBuilder;
-use Drupal\Core\Entity\EntityFieldManager;
 
-function loominade_preprocess_entity_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity) {
-
+function loominade_preprocess_entity_view_alter(array &$build, EntityInterface $entity) {
 
   foreach ($build as $key => $field) {
     if (str_starts_with($key, 'field_')) {
@@ -32,12 +26,12 @@ function loominade_preprocess_entity_view_alter(array &$build, Drupal\Core\Entit
             $target_entity = $value['#' . $entity_type];
             $view_mode = $value['#view_mode'];
 
-            $view_builder = \Drupal::entityTypeManager()->getViewBuilder($entity_type);
+            $view_builder = Drupal::entityTypeManager()->getViewBuilder($entity_type);
             $build[$entity_type . 's'][$key_name][$key2] = $view_builder->view($target_entity, $view_mode);
           }
           if (isset($build[$entity_type . 's'][$key_name][$key2])) {
-            if (isset($build[$entity_type . 's'][$key_name][$key2]["#pre_render"])) {
-              foreach ($build[$entity_type . 's'][$key_name][$key2]["#pre_render"] as $callable) {
+            if (isset($build[$entity_type . 's'][$key_name][$key2]['#pre_render'])) {
+              foreach ($build[$entity_type . 's'][$key_name][$key2]['#pre_render'] as $callable) {
                 $build[$entity_type . 's'][$key_name][$key2] = call_user_func($callable, $build[$entity_type . 's'][$key_name][$key2]);
               }
             }
@@ -46,4 +40,5 @@ function loominade_preprocess_entity_view_alter(array &$build, Drupal\Core\Entit
       }
     }
   }
+
 }
